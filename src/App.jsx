@@ -1,7 +1,12 @@
 import "./App.css";
+import Sidebar from "./components/Sidebar/Sidebar";
 
 function App() {
-  return <></>;
+  return (
+    <div className="flex h-screen">
+      <Sidebar />
+    </div>
+  );
 }
 
 export default App;
