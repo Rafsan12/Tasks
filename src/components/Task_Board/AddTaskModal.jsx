@@ -1,4 +1,24 @@
-export default function AddTaskModal() {
+import { useState } from "react";
+
+export default function AddTaskModal({ onSave }) {
+  const [task, setTask] = useState({
+    // id:,
+    taskName: "",
+    description: "",
+    dueDate: "",
+    category: "",
+  });
+
+  const handleChange = (e) => {
+    const name = e.target.name;
+    let value = e.target.value;
+
+    setTask({
+      ...task,
+      [name]: value,
+    });
+  };
+
   return (
     <>
       <div className="bg-black bg-opacity-70 h-full w-full backdrop-blur-sm absolute z-10 top-0 left-0"></div>
@@ -20,6 +40,8 @@ export default function AddTaskModal() {
                   type="text"
                   id="taskName"
                   name="taskName"
+                  value={task.taskName}
+                  onChange={handleChange}
                   required
                   className="w-full rounded-md border border-gray-600 bg-gray-700 px-3 py-2 text-white placeholder-gray-400 shadow-sm focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
                 />
@@ -34,6 +56,8 @@ export default function AddTaskModal() {
                 <textarea
                   id="description"
                   name="description"
+                  value={task.description}
+                  onChange={handleChange}
                   rows="3"
                   className="w-full rounded-md border border-gray-600 bg-gray-700 px-3 py-2 text-white placeholder-gray-400 shadow-sm focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
                 ></textarea>
@@ -49,6 +73,8 @@ export default function AddTaskModal() {
                   type="date"
                   id="dueDate"
                   name="dueDate"
+                  value={task.dueDate}
+                  onChange={handleChange}
                   className="w-full rounded-md border border-gray-600 bg-gray-700 px-3 py-2 text-white shadow-sm focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
                 />
               </div>
@@ -63,6 +89,8 @@ export default function AddTaskModal() {
                 <select
                   id="category"
                   name="category"
+                  value={task.category}
+                  onChange={handleChange}
                   className="w-full rounded-md border border-gray-600 bg-gray-700 px-3 py-2 text-white shadow-sm focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
                 >
                   <option value="todo">To-Do</option>
@@ -81,6 +109,10 @@ export default function AddTaskModal() {
                 </button>
                 <button
                   type="submit"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onSave(task);
+                  }}
                   className="rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-gray-800"
                 >
                   Create Task

@@ -10,9 +10,13 @@ import Todo_Task from "./Todo_Task";
 export default function Task({ tasks }) {
   const [showModal, setShowModal] = useState(false);
 
+  const handleAddTask = (task) => {
+    console.log("adding", task);
+  };
+
   return (
     <div className="p-6">
-      {showModal && <AddTaskModal />}
+      {showModal && <AddTaskModal onSave={handleAddTask} />}
       <Task_Header onAddTask={() => setShowModal(true)} />
       <div className="-mx-2 mb-6 flex flex-wrap">
         <Todo_Task tasks={tasks} />
