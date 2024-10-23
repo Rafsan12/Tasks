@@ -9,7 +9,7 @@ function App() {
     id: crypto.randomUUID,
     title: "Task1",
     description: "I will create more task",
-    date: "February 24, 2024",
+    date: "February 25, 2024",
   };
 
   const [tasks, setTasks] = useState([defaultTask]);
