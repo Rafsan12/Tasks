@@ -12,21 +12,51 @@ export default function Task({
   setShowModal,
   handleAddTask,
 }) {
+  const categoryTask = (category) => {
+    switch (category) {
+      case "To-Do":
+        return (
+          <Todo_Task
+            tasks={tasks.filter((task) => task.category === "To-Do")}
+          />
+        );
+
+      case "On progress":
+        return (
+          <OnProgress_Task
+            tasks={tasks.filter((task) => task.category === "On progress")}
+          />
+        );
+
+      case "Done":
+        return (
+          <Done_Task tasks={tasks.filter((task) => task.category === "Done")} />
+        );
+
+      case "Revised":
+        return (
+          <Revised_Task
+            tasks={tasks.filter((task) => task.category === "Revised")}
+          />
+        );
+
+      default:
+        return (
+          <Todo_Task
+            tasks={tasks.filter((task) => task.category === "To-Do")}
+          />
+        );
+    }
+  };
   return (
     <div className="p-6">
       {showModal && <AddTaskModal onSave={handleAddTask} />}
       <Task_Header onAddTask={() => setShowModal(true)} />
       <div className="-mx-2 mb-6 flex flex-wrap">
-        {/* <Todo_Task tasks={tasks} />
-        <OnProgress_Task tasks={tasks} /> */}
-        <Todo_Task tasks={tasks.filter((task) => task.category === "To-Do")} />
-        <OnProgress_Task
-          tasks={tasks.filter((task) => task.category === "On progress")}
-        />
-        <Done_Task tasks={tasks.filter((task) => task.category === "Done")} />
-        <Revised_Task
-          tasks={tasks.filter((task) => task.category === "Revised")}
-        />
+        {categoryTask("To-Do")}
+        {categoryTask("On progress")}
+        {categoryTask("Done")}
+        {categoryTask("Revised")}
       </div>
     </div>
   );
