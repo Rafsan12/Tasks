@@ -1,8 +1,9 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 
 export default function AddTaskModal({ onSave }) {
   const [task, setTask] = useState({
-    // id:,
+    id: crypto.randomUUID(),
     taskName: "",
     description: "",
     dueDate: "",
@@ -93,10 +94,10 @@ export default function AddTaskModal({ onSave }) {
                   onChange={handleChange}
                   className="w-full rounded-md border border-gray-600 bg-gray-700 px-3 py-2 text-white shadow-sm focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500"
                 >
-                  <option value="todo">To-Do</option>
-                  <option value="inprogress">On Progress</option>
-                  <option value="done">Done</option>
-                  <option value="revised">Revised</option>
+                  <option value="To-Do">To-Do</option>
+                  <option value="On progress">On Progress</option>
+                  <option value="Done">Done</option>
+                  <option value="Revised">Revised</option>
                 </select>
               </div>
 

@@ -6,20 +6,32 @@ import Task from "./components/Task_Board/Task";
 
 function App() {
   const defaultTask = {
-    id: crypto.randomUUID,
-    title: "Task1",
+    id: crypto.randomUUID(),
+    taskName: "Task1",
     description: "I will create more task",
-    date: "February 25, 2024",
+    dueDate: "February 25, 2024",
   };
 
   const [tasks, setTasks] = useState([defaultTask]);
+  const [showModal, setShowModal] = useState(false);
+
+  const handleAddTask = (newTask) => {
+    console.log("adding", newTask);
+    setTasks([...tasks, newTask]);
+    setShowModal(false);
+  };
   return (
     <div className="flex h-screen">
       <Sidebar />
 
       <div className="flex-1 overflow-y-auto overflow-x-hidden">
         <Header />
-        <Task tasks={tasks} />
+        <Task
+          tasks={tasks}
+          showModal={showModal}
+          setShowModal={setShowModal}
+          handleAddTask={handleAddTask}
+        />
       </div>
     </div>
   );
