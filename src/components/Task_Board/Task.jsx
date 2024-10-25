@@ -11,6 +11,7 @@ export default function Task({
   onEdit,
   taskEdit,
   onCloseClick,
+  onDelete,
 }) {
   const categories = ["To-Do", "On progress", "Revised", "Done"];
 
@@ -31,6 +32,7 @@ export default function Task({
             key={category}
             category={category}
             onEdit={onEdit}
+            onDelete={onDelete}
             tasks={tasks.filter((task) => task.category === category)}
           />
         ))}

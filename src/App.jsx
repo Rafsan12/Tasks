@@ -43,6 +43,11 @@ function App() {
     setShowModal(false);
     setTaskEdit(null);
   };
+
+  const handleDeleteTask = (taskID) => {
+    const taskDelete = tasks.filter((task) => task.id !== taskID);
+    setTasks(taskDelete);
+  };
   return (
     <div className="flex h-screen">
       <Sidebar />
@@ -57,6 +62,7 @@ function App() {
           onEdit={handleEditTask}
           taskEdit={taskEdit}
           onCloseClick={handleCloseTask}
+          onDelete={handleDeleteTask}
         />
       </div>
     </div>

@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { DeleteSvg, EditSvg, SortSvg } from "../../utlity/Svg";
 
-export default function TaskList({ tasks, category, onEdit }) {
+export default function TaskList({ tasks, category, onEdit, onDelete }) {
   return (
     <div className="mb-4 w-full px-2 sm:w-1/2 md:w-1/4">
       <div className={`rounded-lg p-4 bg-${getCategoryColor(category)}`}>
@@ -23,7 +23,10 @@ export default function TaskList({ tasks, category, onEdit }) {
                     {task.taskName}
                   </h4>
                   <div className="flex gap-2">
-                    <DeleteSvg />
+                    <button onClick={() => onDelete(task.id)}>
+                      {" "}
+                      <DeleteSvg />
+                    </button>
                     <button onClick={() => onEdit(task)}>
                       <EditSvg />
                     </button>
