@@ -8,33 +8,37 @@ function App() {
   const defaultTask = {
     id: crypto.randomUUID(),
     taskName: "Task1",
-    description: "I will create more task",
+    description: "I will create more tasks",
     dueDate: "February 25, 2024",
   };
 
   const [tasks, setTasks] = useState([defaultTask]);
   const [showModal, setShowModal] = useState(false);
   const [taskEdit, setTaskEdit] = useState(null);
+  const [findTask, setFindTask] = useState(tasks);
+
+  const updateFindTask = (updatedTasks) => {
+    setFindTask(updatedTasks);
+  };
 
   const handleAddTask = (newTask, isAdd) => {
-    // console.log("adding", newTask);
+    let updatedTasks;
     if (isAdd) {
-      setTasks([...tasks, newTask]);
+      updatedTasks = [...tasks, newTask];
     } else {
-      setTasks(
-        tasks.map((task) => {
-          if (task.id === newTask.id) {
-            return newTask;
-          }
-          return task;
-        })
-      );
+      updatedTasks = tasks.map((task) => {
+        if (task.id === newTask.id) {
+          return newTask;
+        }
+        return task;
+      });
     }
+    setTasks(updatedTasks);
+    updateFindTask(updatedTasks);
     setShowModal(false);
   };
 
   const handleEditTask = (task) => {
-    console.log(task);
     setTaskEdit(task);
     setShowModal(true);
   };
@@ -45,17 +49,29 @@ function App() {
   };
 
   const handleDeleteTask = (taskID) => {
-    const taskDelete = tasks.filter((task) => task.id !== taskID);
-    setTasks(taskDelete);
+    const updatedTasks = tasks.filter((task) => task.id !== taskID);
+    setTasks(updatedTasks);
+    updateFindTask(updatedTasks);
   };
+
+  const handleSearchTask = (searchTask) => {
+    if (searchTask.trim() === "") {
+      setFindTask(tasks);
+    } else {
+      const filteredTasks = tasks.filter((task) =>
+        task.taskName.toLowerCase().includes(searchTask.toLowerCase())
+      );
+      setFindTask(filteredTasks);
+    }
+  };
+
   return (
     <div className="flex h-screen">
       <Sidebar />
-
       <div className="flex-1 overflow-y-auto overflow-x-hidden">
-        <Header />
+        <Header onSearch={handleSearchTask} />
         <Task
-          tasks={tasks}
+          tasks={findTask}
           showModal={showModal}
           setShowModal={setShowModal}
           handleAddTask={handleAddTask}

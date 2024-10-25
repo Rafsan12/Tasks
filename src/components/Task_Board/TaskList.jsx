@@ -1,10 +1,12 @@
 /* eslint-disable react/prop-types */
-import { DeleteSvg, EditSvg, SortSvg } from "../../utlity/Svg";
+import { DeleteSvg, EditSvg, SadSvg, SortSvg } from "../../utlity/Svg";
 
 export default function TaskList({ tasks, category, onEdit, onDelete }) {
+  const categoryColor = getCategoryColor(category);
+
   return (
     <div className="mb-4 w-full px-2 sm:w-1/2 md:w-1/4">
-      <div className={`rounded-lg p-4 bg-${getCategoryColor(category)}`}>
+      <div className={`rounded-lg p-4 ${categoryColor}`}>
         <div className="mb-2 flex items-center justify-between">
           <h3 className="text-lg font-semibold">
             {category} ({tasks.length})
@@ -13,7 +15,9 @@ export default function TaskList({ tasks, category, onEdit, onDelete }) {
         </div>
 
         {tasks.length === 0 ? (
-          <p className="text-xl mt-4 bg-red-600">Task List is empty!</p>
+          <p className="text-2xl mt-4 text-center ">
+            <SadSvg /> Task List is empty!
+          </p>
         ) : (
           tasks.map((task) => (
             <div key={task.id}>
@@ -24,7 +28,6 @@ export default function TaskList({ tasks, category, onEdit, onDelete }) {
                   </h4>
                   <div className="flex gap-2">
                     <button onClick={() => onDelete(task.id)}>
-                      {" "}
                       <DeleteSvg />
                     </button>
                     <button onClick={() => onEdit(task)}>
@@ -46,14 +49,14 @@ export default function TaskList({ tasks, category, onEdit, onDelete }) {
 const getCategoryColor = (category) => {
   switch (category) {
     case "To-Do":
-      return "indigo-600";
+      return "bg-indigo-600";
     case "On progress":
-      return "yellow-500";
+      return "bg-yellow-500";
     case "Revised":
-      return "red-500";
+      return "bg-rose-500";
     case "Done":
-      return "teal-500";
+      return "bg-teal-500";
     default:
-      return "gray-600";
+      return "bg-gray-500";
   }
 };
