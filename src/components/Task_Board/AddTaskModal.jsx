@@ -1,14 +1,19 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 
-export default function AddTaskModal({ onSave }) {
-  const [task, setTask] = useState({
-    id: crypto.randomUUID(),
-    taskName: "",
-    description: "",
-    dueDate: "",
-    category: "",
-  });
+export default function AddTaskModal({ onSave, taskEdit, onCloseClick }) {
+  const [task, setTask] = useState(
+    taskEdit ?? {
+      id: crypto.randomUUID(),
+      taskName: "",
+      description: "",
+      dueDate: "",
+      category: "To-Do",
+    }
+  );
+
+  // Update this condition to properly handle both null and undefined
+  const [isAdd] = useState(!taskEdit);
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -23,11 +28,11 @@ export default function AddTaskModal({ onSave }) {
   return (
     <>
       <div className="bg-black bg-opacity-70 h-full w-full backdrop-blur-sm absolute z-10 top-0 left-0"></div>
-      <div className="flex min-h-screen  justify-center p-4 text-white z-10 absolute w-2/4 top-0">
+      <div className="flex min-h-screen justify-center p-4 text-white z-10 absolute w-2/4 top-0">
         <div className="w-full max-w-md rounded-lg bg-gray-800 shadow-xl">
           <div className="p-6">
             <h2 className="mb-6 text-2xl font-bold text-green-400">
-              Create Task
+              {isAdd ? "Create Task" : "Edit Task"}
             </h2>
             <form>
               <div className="mb-4">
@@ -103,6 +108,7 @@ export default function AddTaskModal({ onSave }) {
 
               <div className="flex justify-end space-x-3">
                 <button
+                  onClick={onCloseClick}
                   type="button"
                   className="rounded-md border border-gray-600 px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-gray-800"
                 >
@@ -110,13 +116,12 @@ export default function AddTaskModal({ onSave }) {
                 </button>
                 <button
                   type="submit"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    onSave(task);
+                  onClick={() => {
+                    onSave(task, isAdd);
                   }}
                   className="rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-gray-800"
                 >
-                  Create Task
+                  {isAdd ? "Create Task" : "Edit Task"}
                 </button>
               </div>
             </form>

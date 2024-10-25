@@ -14,11 +14,34 @@ function App() {
 
   const [tasks, setTasks] = useState([defaultTask]);
   const [showModal, setShowModal] = useState(false);
+  const [taskEdit, setTaskEdit] = useState(null);
 
-  const handleAddTask = (newTask) => {
-    console.log("adding", newTask);
-    setTasks([...tasks, newTask]);
+  const handleAddTask = (newTask, isAdd) => {
+    // console.log("adding", newTask);
+    if (isAdd) {
+      setTasks([...tasks, newTask]);
+    } else {
+      setTasks(
+        tasks.map((task) => {
+          if (task.id === newTask.id) {
+            return newTask;
+          }
+          return task;
+        })
+      );
+    }
     setShowModal(false);
+  };
+
+  const handleEditTask = (task) => {
+    console.log(task);
+    setTaskEdit(task);
+    setShowModal(true);
+  };
+
+  const handleCloseTask = () => {
+    setShowModal(false);
+    setTaskEdit(null);
   };
   return (
     <div className="flex h-screen">
@@ -31,6 +54,9 @@ function App() {
           showModal={showModal}
           setShowModal={setShowModal}
           handleAddTask={handleAddTask}
+          onEdit={handleEditTask}
+          taskEdit={taskEdit}
+          onCloseClick={handleCloseTask}
         />
       </div>
     </div>
