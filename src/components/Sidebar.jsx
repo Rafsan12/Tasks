@@ -1,7 +1,25 @@
 import Logo from "../assets/lws-logo-en.svg";
-import { navLinks } from "../data";
+import {
+  CalendarSvg,
+  ContactSvg,
+  DashboardSvg,
+  KanbanSvg,
+  MessagesSvg,
+  ProjectsSvg,
+  SettingsSvg,
+} from "../utlity/Svg";
 
 export default function Sidebar() {
+  const navLinks = [
+    { label: "Dashboard", svg: DashboardSvg },
+    { label: "Projects", svg: ProjectsSvg },
+    { label: "Contact", svg: ContactSvg },
+    { label: "Kanban", svg: KanbanSvg },
+    { label: "Calendar", svg: CalendarSvg },
+    { label: "Messages", svg: MessagesSvg },
+    { label: "Settings", svg: SettingsSvg },
+  ];
+
   return (
     <aside className="hidden w-64 bg-gray-800 p-6 lg:block">
       <div className="mb-8 flex items-center">

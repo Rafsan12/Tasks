@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { useTasks } from "../context/TaskContext";
-import { taskCategories } from "../data";
-
 import { AddSvg } from "../utlity/Svg";
 import Modal from "./Modal";
 import TaskCategory from "./TaskCategory";
@@ -25,6 +23,8 @@ export default function ProjectBoard() {
     setCurrentTask(null);
     setShowModal(false);
   };
+
+  const taskCategories = ["To-Do", "On Progress", "Done", "Revise"];
 
   return (
     <div className="mx-auto max-w-7xl p-6">

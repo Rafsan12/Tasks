@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import { useQuery } from "../context/TaskContext";
-
 import { getColor } from "../utlity/getColor";
 import { BarsArrowUpSvg, SadSvg, SortSvg } from "../utlity/Svg";
 import Task from "./Task";
+
 export default function TaskCategory({ taskType, tasks, onTaskEdit }) {
   const [bgColor, textColor] = getColor(taskType);
   const [isAscending, setIsAscending] = useState(false);
