@@ -1,4 +1,4 @@
-import Logo from "../assets/lws-logo-en.svg";
+
 import {
   CalendarSvg,
   ContactSvg,
